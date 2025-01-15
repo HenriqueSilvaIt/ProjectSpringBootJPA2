@@ -2,6 +2,7 @@ package com.henriqueproject.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.henriqueproject.course.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -23,6 +24,8 @@ public class Order implements Serializable {
     private Instant moment; // a partir do Java 8 surgiu o instant que é melhor que a classe
     // Date
 
+    private Integer orderStatus;
+
 
     @ManyToOne // implementando relação no banco de dados
     // isso vai fazer o JPA criar uma chave extrangeira lá na tabela Usuário
@@ -32,9 +35,10 @@ public class Order implements Serializable {
     // Construtores
     public Order() {
     }
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus); // para fazer a atribuição do OrderStatus ao objeto
         this.client = client;
     }
 
@@ -51,6 +55,17 @@ public class Order implements Serializable {
     }
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus); // como o da classe agora é Integer
+        // vamos converter usando o return acima para pegar o tipo OrderStatus
+        // que criamos no enum
+    }
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {// para evitar que o programador passe o valor nulo
+            // para consutruir o objeto
+            this.orderStatus = orderStatus.getCode();
+        }
     }
     public User getClient() {
         return client;

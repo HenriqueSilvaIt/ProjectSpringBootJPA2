@@ -2,6 +2,7 @@ package com.henriqueproject.course.config;
 
 import com.henriqueproject.course.entities.Order;
 import com.henriqueproject.course.entities.User;
+import com.henriqueproject.course.entities.enums.OrderStatus;
 import com.henriqueproject.course.repositories.OrderRepository;
 import com.henriqueproject.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class TestConfig implements CommandLineRunner {
         // como temos um atributo do tipo user na classe Order, alem da lista order
         // abaixo quando instanciamos temos que passa esse objeto user no final
         // que ai ele vai fazer a associação entre os objetos
-        Order o1 = new Order(null, Instant.parse("2024-05-20T19:53:07Z"), u1);
-        Order o2 = new Order(null, Instant.parse("2024-07-21T03:42:01Z"), u2);
-        Order o3 = new Order(null, Instant.parse("2024-08-22T15:21:22Z"), u1);
+        Order o1 = new Order(null, Instant.parse("2024-05-20T19:53:07Z"), OrderStatus.PAID, u1);
+        Order o2 = new Order(null, Instant.parse("2024-07-21T03:42:01Z"), OrderStatus.WAITING_PAYMENT,u2);
+        Order o3 = new Order(null, Instant.parse("2024-08-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
         //para salvar esses usuários acima no banco de dados:
         userRepository.saveAll(Arrays.asList(u1,u2)); // salvando usuários do objeto no banco
