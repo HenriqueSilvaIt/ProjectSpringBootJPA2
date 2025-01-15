@@ -1,5 +1,7 @@
 package com.henriqueproject.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,10 +17,13 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // Essa formatação formata o JSON para da data moment
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment; // a partir do Java 8 surgiu o instant que é melhor que a classe
     // Date
 
-    //Associação com a entitidade usuário
+
     @ManyToOne // implementando relação no banco de dados
     // isso vai fazer o JPA criar uma chave extrangeira lá na tabela Usuário
     @JoinColumn(name = "client_id") // Aqui você passa o nome da chave estrangeira

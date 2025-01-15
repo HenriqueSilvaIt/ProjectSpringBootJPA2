@@ -1,5 +1,6 @@
 package com.henriqueproject.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -34,7 +35,12 @@ public class User implements Serializable {
         this.password = password;
 
     }
-
+    @JsonIgnore
+// quando tem relação entre 2 tabela a biblioteca de serialização fica chamando um outro sem parar ai é necessário colocar o JsonIgonore
+    // em umas das tabela para parar o Looping) tem que  colocar em cima da lista ou atributo
+    //Associação com a entitidade usuário, esse JsonIgonre, é colocado na classe user
+    // porque ai vai ser feito a asociação da tabela Orders com User então vai pegar esse campo
+    // abaixo client na API
     @OneToMany(mappedBy = "client") // aqui estamos fazendo a relação
     // no JPA de muitos para um onde a tabela cliente consegue acessar a tabela pedido
     //
