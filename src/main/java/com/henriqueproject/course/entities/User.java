@@ -3,6 +3,8 @@ package com.henriqueproject.course.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -32,6 +34,12 @@ public class User implements Serializable {
         this.password = password;
 
     }
+
+    @OneToMany(mappedBy = "client") // aqui estamos fazendo a relação
+    // no JPA de muitos para um onde a tabela cliente consegue acessar a tabela pedido
+    //
+  private List<Order> orders = new ArrayList<>();
+
 // Getters  and se T
     public Long getId() {
         return id;
@@ -62,6 +70,9 @@ public class User implements Serializable {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
