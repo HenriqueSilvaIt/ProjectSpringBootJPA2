@@ -2,10 +2,12 @@ package com.henriqueproject.course.config;
 
 import com.henriqueproject.course.entities.Category;
 import com.henriqueproject.course.entities.Order;
+import com.henriqueproject.course.entities.Product;
 import com.henriqueproject.course.entities.User;
 import com.henriqueproject.course.entities.enums.OrderStatus;
 import com.henriqueproject.course.repositories.CategoryRepository;
 import com.henriqueproject.course.repositories.OrderRepository;
+import com.henriqueproject.course.repositories.ProductRepository;
 import com.henriqueproject.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,6 +34,8 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception { // tudo que tiver dentro desse método
@@ -41,8 +45,18 @@ public class TestConfig implements CommandLineRunner {
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
+        Category cat4 = new Category(null, "Beauty");
 
-        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        Product p1 = new Product(null, "The Lord of Rings", "Lorem impsum dolor sit amet, consectetur.", 90.5,"");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product p4 = new Product(null, "Base Tauana Beauty", "Base de maquiagem.", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4 ,p5));
+
+
 
         User u1 = new User(null, "Tauana Mireli", "tauana@gmail.com", "99943543", "23423432");
         User u2 = new User(null, "Henrique Silva", "henrique@gmail.com", "1231231231", "234234234");

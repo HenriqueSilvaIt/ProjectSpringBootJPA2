@@ -2,8 +2,11 @@ package com.henriqueproject.course.entities;
 
 import jakarta.persistence.*;
 
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -38,6 +41,10 @@ public class Category implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    @Transient // Vai impedir que o JPA tente intrepetar o  relaciomaneto abaixo por hora
+    // Associação Category x Product
+    private Set<Product> products = new HashSet<>();
+// precisa incluir o get para coleção acima, só oget
 
 
     @Override
