@@ -1,5 +1,6 @@
 package com.henriqueproject.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -17,6 +18,17 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")  // aqui você coloca o nome da variavel que você
+    // colocou como lista ou conjunto na outra classe que está associada a essa no caso
+    // foi private Set<Category> categories = new HashSet<>();, por isso passamos categories
+    // como argumento
+    // Associação Category x Product
+    private Set<Product> products = new HashSet<>();
+// precisa incluir o get para coleção acima, só oget
+
+
 
     // Construtores
     public Category() {
@@ -41,10 +53,6 @@ public class Category implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    @Transient // Vai impedir que o JPA tente intrepetar o  relaciomaneto abaixo por hora
-    // Associação Category x Product
-    private Set<Product> products = new HashSet<>();
-// precisa incluir o get para coleção acima, só oget
 
 
     @Override

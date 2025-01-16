@@ -42,7 +42,8 @@ public class User implements Serializable {
     // porque ai vai ser feito a asociação da tabela Orders com User então vai pegar esse campo
     // abaixo client na API
     @OneToMany(mappedBy = "client") // aqui estamos fazendo a relação
-    // no JPA de muitos para um onde a tabela cliente consegue acessar a tabela pedido
+    // no JPA um para  muitos  onde a tabela usuário consegue acessar a tabela pedido (um usuário
+    // pode ter muitos pedido s
     //
   private List<Order> orders = new ArrayList<>();
 

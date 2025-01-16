@@ -21,7 +21,15 @@ public class Product implements Serializable {
     private String imgUrl;
 
     //Associações Produto x Categories
-    @Transient // Vai impedir que o JPA tente intrepetar o  relaciomaneto abaixo por hora
+
+    @ManyToMany // Faz associação muito para muitos
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"), // informe qual vai ser o nome da chave estrangeira da tabela dessa classe
+            inverseJoinColumns = @JoinColumn(name = "category_id")) // informe qual vai ser o nome da chave estrangeira da tabela da outra classe que vocÊ quer fazer associação
+    // JoinTable cria uma tabela de associação unificando as duas tabelas,
+    // nesse caso, passamos qual é o nome da tabela de associação,
+    // e com o joinColumns quais vão serão as chaves estrangeira
+    // que vai associar a  tabela produto co  a tabela de categoria
     private Set<Category> categories = new HashSet<>();// o mesmo produto não pode ter uma categoria mais de uma vez por isso usamo o set
     // Nós instaciamos o new hash para não iniciar vazia, vai iniciar valendo nula
 

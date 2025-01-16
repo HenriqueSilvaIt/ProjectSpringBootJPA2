@@ -19,7 +19,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Essa formatação formata o JSON para da data moment
+    // Essa formatação formata o JSON da data moment
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment; // a partir do Java 8 surgiu o instant que é melhor que a classe
     // Date

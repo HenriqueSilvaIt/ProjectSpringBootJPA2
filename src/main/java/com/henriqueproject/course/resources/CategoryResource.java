@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController /* Isso é para informar para Spring  que essa classe
 é um recurso Web que é  implementado
-em cima de um contralador REST */
+em cima de um controlador REST */
 @RequestMapping(value= "/categories") /*  Para dar um nome para o recurso acima
 é só colocar o request Mapping, ai colocamos valor= /caminhodoseurecurso*/
 public class CategoryResource {

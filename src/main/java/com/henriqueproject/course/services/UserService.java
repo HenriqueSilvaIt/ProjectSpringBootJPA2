@@ -28,7 +28,7 @@ public class UserService {
         Optional<User> obj =  repository.findById(id);
         return obj.get(); //Esse optional retorna com o get o objeto que está dentro desse
         // optinal para apontarmos que o respository vai encontratar
-        //o Id do objeto user(da do pacote entites)
+        //o Id do objeto user( do pacote entities)
     }
 
 }

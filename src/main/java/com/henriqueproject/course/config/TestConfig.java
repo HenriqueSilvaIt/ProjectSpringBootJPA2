@@ -53,10 +53,22 @@ public class TestConfig implements CommandLineRunner {
         Product p4 = new Product(null, "Base Tauana Beauty", "Base de maquiagem.", 1200.0, "");
         Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 
+        // salvando inserts no banc
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4 ,p5));
 
+        //Associando produto a categoria
+        p1.getCategories().add(cat2);
+        p4.getCategories().add(cat4);
+        //p2 é um produto que faz parte de 2 categoria
+        p2.getCategories().add(cat1);
+        p2.getCategories().add(cat3);
+        p3.getCategories().add(cat3);
+        p5.getCategories().add(cat2);
 
+        // Salvando produtos com as associações feita em memória
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+        // Essa é a forma feita em JPA é diferente de fazer em SQL
 
         User u1 = new User(null, "Tauana Mireli", "tauana@gmail.com", "99943543", "23423432");
         User u2 = new User(null, "Henrique Silva", "henrique@gmail.com", "1231231231", "234234234");
