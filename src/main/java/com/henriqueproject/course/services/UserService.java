@@ -2,8 +2,11 @@ package com.henriqueproject.course.services;
 
 import com.henriqueproject.course.entities.User;
 import com.henriqueproject.course.repositories.UserRepository;
+import com.henriqueproject.course.services.exceptions.DatabaseException;
 import com.henriqueproject.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +44,14 @@ public class UserService {
 
     // Deletar usuário do Banco
     public void delete(Long id) {
-       repository.deleteById(id);
+       try {
+           repository.deleteById(id);
+       } catch (EmptyResultDataAccessException e) {  // exception do erro de delete ID não encontrado
+            // ai vamos tratar ela com a nossa exceção personalizada abaixo
+           throw new ResourceNotFoundException(id);
+       } catch (DataIntegrityViolationException e) {
+           throw new DatabaseException(e.getMessage()); // colocando a minha exceção personalizada
+       }
     }
 
     // Atualizar usuário
