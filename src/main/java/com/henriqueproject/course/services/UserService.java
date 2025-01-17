@@ -31,4 +31,8 @@ public class UserService {
         //o Id do objeto user( do pacote entities)
     }
 
+    public User insert(User obj) {
+        return repository.save(obj); // esse save por padrão já retorna o objeto salvo do tipo user
+    }
+
 }

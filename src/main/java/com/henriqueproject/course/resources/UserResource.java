@@ -5,7 +5,9 @@ import com.henriqueproject.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +42,30 @@ public class UserResource {
         // tem que colocar @PathVariable
         User user = service.findById(id);
         return ResponseEntity.ok().body(user); // criamos o nosso end point
+    }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj) {
+        // Para dizer quesse objeto user vai chegar no modo JSON na api na hora de fazer requisição
+        // esse JSON vai ser deserializado para um objeto user tem que colocar um RequestBody
+        // no caso de inserção
+
+        obj = service.insert(obj);
+        /*return ResponseEntity.ok().body(obj); Esse .ok vai retornar na API o 200
+        se for tudo ok no insert do JSON, porém o ideal para criação de objeto é o  retorno
+        201 que vamos fazer abaixo:
+         */
+
+        // No padrão http quando vocÊ vai fazer
+        // retornar um 201 é esperado que a respota retorne um cabeçalho
+        // contem um location (local) para gerar o endereço utiliizamos a variavel abaixo:
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(obj);
+
+        // agora sim ele vai dar 201 que é o created
+        // ai se você mudar para get o mesmo objet na postman ele vai trazer o objeto em JSON certinho
+        // poir o location vai estar inserido na API
     }
 }
