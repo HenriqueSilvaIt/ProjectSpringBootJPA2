@@ -4,6 +4,7 @@ import com.henriqueproject.course.entities.User;
 import com.henriqueproject.course.repositories.UserRepository;
 import com.henriqueproject.course.services.exceptions.DatabaseException;
 import com.henriqueproject.course.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -58,14 +59,17 @@ public class UserService {
     public User update(Long id, User obj) { // ele recebe um Id para pegar
         // qual o usuário será atualizado e o obj User para dizer quais informações serão atualizadas
         // incluive da pra usar esse método também para realizar o pagamento
-        User entity = repository.getReferenceById(id); // ReferenceById vai instanciar um objeto
-        // monitorado pelo JPA e não vai colocar no banco de dados ainda
-        // eu vou poder mexer nele e em seguida eu salvar no banco de dados depoi
-        updateData(entity, obj); // atualiza o atributo entity que recebe o id
-        // baseado nos dados do obj(objeto TEM QUE CRIAR O MÉTODO RECOMENDADO
-        // do updateDate , só pasar o mouse em cima que ele criar automaticamente
-        return repository.save(entity); // salva no banco de ados
-
+     try {
+         User entity = repository.getReferenceById(id); // ReferenceById vai instanciar um objeto
+         // monitorado pelo JPA e não vai colocar no banco de dados ainda
+         // eu vou poder mexer nele e em seguida eu salvar no banco de dados depoi
+         updateData(entity, obj); // atualiza o atributo entity que recebe o id
+         // baseado nos dados do obj(objeto TEM QUE CRIAR O MÉTODO RECOMENDADO
+         // do updateDate , só pasar o mouse em cima que ele criar automaticamente
+         return repository.save(entity); // salva no banco de ados
+     } catch (EntityNotFoundException e) {
+         throw new ResourceNotFoundException(id);
+     }
     }
 
         // Esse método abaixo vai pedir para informar quais dados vocÊ vai atualizar
