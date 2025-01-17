@@ -1,18 +1,18 @@
-FROM maven:4.0.0-amazoncorretto-17 AS build
+FROM maven:3.9.7-amazoncorretto-17 AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+COPY src /app/src
+COPY pom.xml /app
 
-COPY . .
+WORKDIR /app
 
 RUN mvn clean install
 
 FROM amazoncorretto:17-alpine-jdk
 
+COPY --from=build /app/target/CU-0.0.1-SNAPSHOT.jar /app/app.jar
+
+WORKDIR /app
+
 EXPOSE 8080
 
-COPY --from=build /target/course-0.0.1-SNAPSHOT app.jar
-
-
-
-ENTRYPOINT [ "java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
