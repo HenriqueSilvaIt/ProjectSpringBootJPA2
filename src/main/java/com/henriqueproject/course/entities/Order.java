@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order") // já existe uma operação order no H2 por isso que da conflito
@@ -31,6 +33,11 @@ public class Order implements Serializable {
     // isso vai fazer o JPA criar uma chave extrangeira lá na tabela Usuário
     @JoinColumn(name = "client_id") // Aqui você passa o nome da chave estrangeira
     private User client;
+
+    @OneToMany(mappedBy = "id.order") // No ordem item eu tenho o ID e o ID é que tem o pedido
+    // ou seja é no ID que do OrderItem que eu tenho orderItemPk QUE TEm pedido
+    // que a junção das tabela product e category
+    private Set<OrderItem> items = new HashSet<>();
 
     // Construtores
     public Order() {
@@ -72,6 +79,10 @@ public class Order implements Serializable {
     }
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Set<OrderItem> getItems() {
+        return items; // get do atributo Set<OrdemItem>
     }
 
 // Hash code e equals

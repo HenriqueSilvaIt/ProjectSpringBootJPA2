@@ -1,5 +1,6 @@
 package com.henriqueproject.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.henriqueproject.course.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -7,13 +8,14 @@ import jakarta.persistence.Table;
 
 import java.util.Objects;
 
+
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem {
 
     @EmbeddedId // para indicar que o método abaixo é um Id composto (ou seja Id de duas tabelas
     // unificado
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK(); // precisa instanciar essa classe co m o new
     private Integer quantity;
     private Double price;
 
@@ -34,6 +36,9 @@ public class OrderItem {
 
     // G
 
+    @JsonIgnore // Na JAVA EE oque vale em associação composta é o método get do id porque
+    // esse get order que estava chamando o item de pedido e o item de pedido chamava o pedido
+    // e dava o looping na api JSON, por isso que o JsonIgonre vem pra ca
     public Order getOrder() {
         return id.getOrder();
     }
