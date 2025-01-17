@@ -5,7 +5,7 @@ COPY . .
 
 RUN apt-cache search maven
 
-RUN apt-get install maven install -y
+RUN apt-get update && apt-get install maven -y
 RUN mvn -version
 RUN mvn clean install
 
