@@ -9,7 +9,7 @@ RUN mvn clean install
 
 FROM amazoncorretto:17-alpine-jdk
 
-COPY --from=build /app/target/CU-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/target/course-0.0.1-SNAPSHOT.jar /app/app.jar
 
 WORKDIR /app
 
