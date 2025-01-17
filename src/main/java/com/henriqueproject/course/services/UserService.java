@@ -2,6 +2,7 @@ package com.henriqueproject.course.services;
 
 import com.henriqueproject.course.entities.User;
 import com.henriqueproject.course.repositories.UserRepository;
+import com.henriqueproject.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,10 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj =  repository.findById(id);
-        return obj.get(); //Esse optional retorna com o get o objeto que está dentro desse
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+// O orElseThrow tenta dar o get se não tiver usuário com esse ID especeficio ele
+// lança a exceção que está sendo passada como argumento no predicado
+// Esse optional retorna com o get o objeto que está dentro desse
         // optinal para apontarmos que o respository vai encontratar
         //o Id do objeto user( do pacote entities)
     }
