@@ -45,6 +45,8 @@ public class OrderItem {
     public void setOrder(Order order) {
         id.setOrder(order); // esse método jog um order(pedido lá na tabela OrderItemPK
     }
+
+   // @JsonIgnore // para não acontecer looping infinito com o product
     public Product getProduct(){
         return id.getProduct();
     }

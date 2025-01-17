@@ -1,11 +1,13 @@
 package com.henriqueproject.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name= "tb_product")
@@ -34,6 +36,10 @@ public class Product implements Serializable {
     private Set<Category> categories = new HashSet<>();// o mesmo produto não pode ter uma categoria mais de uma vez por isso usamo o set
     // Nós instaciamos o new hash para não iniciar vazia, vai iniciar valendo nula
 
+    @OneToMany(mappedBy = "id.product") // aqui é a mesma coisa
+    // que fizemos na classe order, porém nesse caso passamos como argumento id.product
+    private Set<OrderItem> items = new HashSet<>(); // Estamos colocando Set
+    // e não list para dizer que não vamos aceitar repetições de OrderItem
 
     // Construtores
     public Product() {
@@ -96,6 +102,16 @@ public class Product implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore // para buscar o produto pelo pedido e não o pedido pelo produto
+    public Set <Order> getOrders() {
+       return items.stream().map(OrderItem::getOrder).collect(Collectors.toSet());
+     /* Set<Order> set = new HashSet<>();
+        for (OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;*/
     }
 
     @Override
