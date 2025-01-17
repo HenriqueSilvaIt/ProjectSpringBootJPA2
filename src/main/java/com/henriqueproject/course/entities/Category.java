@@ -21,8 +21,8 @@ public class Category implements Serializable {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "categories")  // aqui você coloca o nome da variavel que você
-    // colocou como lista ou conjunto na outra classe que está associada a essa no caso
-    // foi private Set<Category> categories = new HashSet<>();, por isso passamos categories
+    // colocou como lista ou conjunto na outra classe (product) que está associada a essa no caso
+    // foi declarado private Set<Category> categories = new HashSet<>();, por isso passamos categories
     // como argumento
     // Associação Category x Product
     private Set<Product> products = new HashSet<>();

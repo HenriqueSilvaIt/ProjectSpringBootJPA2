@@ -30,6 +30,7 @@ public class Product implements Serializable {
     // nesse caso, passamos qual é o nome da tabela de associação,
     // e com o joinColumns quais vão serão as chaves estrangeira
     // que vai associar a  tabela produto co  a tabela de categoria
+    // inverseJoinColumns é para definir a chave estrangeira da outra classe, ness caso da classe category
     private Set<Category> categories = new HashSet<>();// o mesmo produto não pode ter uma categoria mais de uma vez por isso usamo o set
     // Nós instaciamos o new hash para não iniciar vazia, vai iniciar valendo nula
 
