@@ -5,7 +5,6 @@ COPY pom.xml /app
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install maven -y
 RUN mvn clean install
 
 FROM amazoncorretto:17-alpine-jdk
