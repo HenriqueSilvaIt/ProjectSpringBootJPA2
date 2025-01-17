@@ -1,5 +1,6 @@
 package com.henriqueproject.course.resources;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import com.henriqueproject.course.entities.User;
 import com.henriqueproject.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController /* Isso é para informar para Spring  que essa classe
 é um recurso Web que é  implementado
@@ -67,5 +70,17 @@ public class UserResource {
         // agora sim ele vai dar 201 que é o created
         // ai se você mudar para get o mesmo objet na postman ele vai trazer o objeto em JSON certinho
         // poir o location vai estar inserido na API
+
     }
-}
+
+    @DeleteMapping(value = "/{id}")
+        public ResponseEntity<Void> delete (@PathVariable Long id) { // Para Long ID ser reconhecido como uma variavel
+            // vamos colocar o @PathVariable
+            // como é só deleção não retorna nada é void
+            service.delete(id);
+            return ResponseEntity.noContent().build(); // o no content é para tratar
+            // reposta que não saida ou seja respota vazia e o código para
+            // tratar respota que n tem saída no http é o código 204
+        }
+    }
+
