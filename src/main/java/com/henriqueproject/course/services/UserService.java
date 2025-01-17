@@ -30,12 +30,40 @@ public class UserService {
         //o Id do objeto user( do pacote entities)
     }
 
+    //Inserir novo usuário cliente no banco
     public User insert(User obj) {
         return repository.save(obj); // esse save por padrão já retorna o objeto salvo do tipo user
     }
 
+    // Deletar usuário do Banco
     public void delete(Long id) {
        repository.deleteById(id);
+    }
+
+    // Atualizar usuário
+    public User update(Long id, User obj) { // ele recebe um Id para pegar
+        // qual o usuário será atualizado e o obj User para dizer quais informações serão atualizadas
+        // incluive da pra usar esse método também para realizar o pagamento
+        User entity = repository.getReferenceById(id); // ReferenceById vai instanciar um objeto
+        // monitorado pelo JPA e não vai colocar no banco de dados ainda
+        // eu vou poder mexer nele e em seguida eu salvar no banco de dados depoi
+        updateData(entity, obj); // atualiza o atributo entity que recebe o id
+        // baseado nos dados do obj(objeto TEM QUE CRIAR O MÉTODO RECOMENDADO
+        // do updateDate , só pasar o mouse em cima que ele criar automaticamente
+        return repository.save(entity); // salva no banco de ados
+
+    }
+
+        // Esse método abaixo vai pedir para informar quais dados vocÊ vai atualizar
+    private void updateData(User entity, User obj) {
+        entity.setName(obj.getName());// Atualiza nome
+        entity.setEmail(obj.getEmail()); // atualiza email
+        entity.setPhone(obj.getPhone()); // atualiza telefone
+
+        // IMPORNTANTE NESSE CASO NÃO COLOCAMOS  ID e SENHA
+        // PARA SER ATUALIZADO
+        // SOMENTE INFORMAÇÕES CADASTRAIS
+
     }
 
 }

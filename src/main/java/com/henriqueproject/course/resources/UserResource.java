@@ -82,5 +82,12 @@ public class UserResource {
             // reposta que não saida ou seja respota vazia e o código para
             // tratar respota que n tem saída no http é o código 204
         }
+
+        // Atualizando usuário no banco no padrão REST usuando método http PUT
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+        service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
     }
 
