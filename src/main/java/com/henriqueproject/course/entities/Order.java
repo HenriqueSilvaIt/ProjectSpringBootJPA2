@@ -1,5 +1,6 @@
 package com.henriqueproject.course.entities;
 
+import com.henriqueproject.course.entities.Payment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.henriqueproject.course.entities.enums.OrderStatus;
@@ -38,6 +39,11 @@ public class Order implements Serializable {
     // ou seja é no ID que do OrderItem que eu tenho orderItemPk QUE TEm pedido
     // que a junção das tabela product e category
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL) //
+     // Aqui estamos mapeando mapeando  as entidade com mesmo ID
+    //por isso estamos colocando desse cascade
+    private Payment payment;
 
     // Construtores
     public Order() {
@@ -79,6 +85,14 @@ public class Order implements Serializable {
     }
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public Set<OrderItem> getItems() {
