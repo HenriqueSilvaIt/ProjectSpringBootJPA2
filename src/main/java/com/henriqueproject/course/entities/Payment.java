@@ -1,5 +1,6 @@
 package com.henriqueproject.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import com.henriqueproject.course.entities.Order;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ public class Payment implements Serializable {
     private Long id;
     private Instant moment;
 
+    @JsonIgnore
     @OneToOne
     @MapsId// ISSO fica na clase dependente que é o pagemento
     private Order order;

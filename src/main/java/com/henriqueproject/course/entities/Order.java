@@ -99,6 +99,17 @@ public class Order implements Serializable {
         return items; // get do atributo Set<OrdemItem>
     }
 
+    //Métodos operadore
+
+    public Double getTotal () { // Tem que colocar o GET porque o JAVA EE vai reconhecer
+        // só o get para gerar o JSON
+        double sum = 0.0;
+        for (OrderItem item : items) {
+            sum += item.getSubTotal();
+        }
+        return sum;
+    }
+
 // Hash code e equals
     @Override
     public boolean equals(Object o) {

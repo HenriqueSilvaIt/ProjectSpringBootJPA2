@@ -67,6 +67,13 @@ public class OrderItem {
         this.price = price;
     }
 
+    //Método operação
+
+    public Double getSubTotal() {// na plataforma JAVA EE oque vale é o get, por isso
+        // que colocamos getSubTotal, para o JAVA EE conseguir gerar o JSON
+        return price * quantity;
+    }
+
     // HashCode e equals da classe id
     @Override
     public boolean equals(Object o) {
