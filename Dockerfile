@@ -1,6 +1,6 @@
 FROM maven:3.9.7-amazoncorretto-17 AS build
 
-RUN mvn clean install -Denforcer.fail=false
+RUN mvn clean install
 
 FROM amazoncorretto:17-alpine-jdk
 
