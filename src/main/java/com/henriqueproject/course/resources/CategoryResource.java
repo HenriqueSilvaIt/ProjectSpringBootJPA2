@@ -19,7 +19,7 @@ em cima de um controlador REST */
 public class CategoryResource {
     // Método endpoint para acessar os usuários, ResponseEntity é um tipo
     // específico do Spring para retornar respostas de requisições Web
-
+//
     // colocando dependência para o service
     @Autowired
 
