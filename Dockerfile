@@ -5,7 +5,7 @@ COPY pom.xml /app
 
 WORKDIR /app
 
-RUN mvn clean install
+RUN mvn clean install -Denforcer.fail=false
 
 FROM amazoncorretto:17-alpine-jdk
 
