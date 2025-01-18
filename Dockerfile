@@ -5,7 +5,7 @@ COPY pom.xml /app
 
 WORKDIR /app
 
-RUN mvn clean install
+RUN mvn clean install -y
 
 FROM maven:3.8-openjdk-17
 
